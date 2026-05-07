@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>UNO Master</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <canvas id="confetti-canvas"></canvas>
+    <div id="game-container">
+        <!-- Top area: Computer Hand -->
+        <div id="computer-area" class="player-area">
+            <div class="player-info">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Computer" alt="Computer Avatar" class="avatar">
+                <div class="player-details">
+                    <h3>Computer</h3>
+                    <span id="computer-card-count" class="card-count">Cards: 7</span>
+                </div>
+            </div>
+            <div id="computer-hand" class="hand"></div>
+        </div>
+
+        <!-- Center area: Play Area -->
+        <div id="center-area">
+            <div class="deck-container">
+                <div id="draw-pile" class="card back">
+                    <div class="card-inner">
+                        <span class="uno-text">UNO</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="discard-container">
+                <div id="discard-pile" class="pile"></div>
+            </div>
+
+            <div class="center-controls">
+                <button id="uno-btn" class="action-btn disabled">UNO!</button>
+                <div id="current-color-indicator" class="color-indicator"></div>
+                <div id="turn-indicator">Your Turn!</div>
+            </div>
+        </div>
+
+        <!-- Bottom area: Player Hand -->
+        <div id="player-area" class="player-area">
+            <div id="player-hand" class="hand"></div>
+            <div class="player-info player-bottom">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Player" alt="Player Avatar" id="player-avatar" class="avatar">
+                <div class="player-details">
+                    <h3 id="player-name-display">You</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="start-screen-modal" class="modal">
+        <div class="modal-content text-center">
+            <h1 style="margin-bottom: 10px; color: #ffaa00;">Welcome to UNO</h1>
+            <p style="margin-bottom: 20px;">Please enter your name to start the game.</p>
+            <input type="text" id="player-name-input" placeholder="Your Name" autocomplete="off" maxlength="15" />
+            <br>
+            <button id="start-game-btn" class="primary-btn">Start Game</button>
+        </div>
+    </div>
+    <div id="color-picker-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Choose a Color</h2>
+            <div class="color-options">
+                <button class="color-btn red" data-color="red"></button>
+                <button class="color-btn blue" data-color="blue"></button>
+                <button class="color-btn green" data-color="green"></button>
+                <button class="color-btn yellow" data-color="yellow"></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-over-modal" class="modal hidden">
+        <div class="modal-content text-center">
+            <h1 id="game-over-title">You Win!</h1>
+            <p id="game-over-message">Congratulations, you beat the computer.</p>
+            <button id="restart-btn" class="primary-btn">Play Again</button>
+        </div>
+    </div>
+    
+    <!-- Audio Elements -->
+    <audio id="bg-music" loop>
+        <!-- Comfy Vibe Future Music -->
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="card-play-sound">
+        <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/descent/gotitem.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="card-draw-sound">
+        <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/pang/pop.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="win-sound">
+        <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=success-1-6297.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="loss-sound">
+        <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_c6ccf3232f.mp3?filename=negative_beeps-6008.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="audio-controls">
+        <button id="music-toggle" class="control-btn">🔇 Music</button>
+        <button id="sfx-toggle" class="control-btn">🔇 SFX</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
