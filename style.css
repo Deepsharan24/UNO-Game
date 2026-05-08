@@ -478,6 +478,10 @@ body {
         padding-right: 20px;
     }
 
+    #computer-hand {
+        display: none;
+    }
+
     .hand::-webkit-scrollbar {
         height: 5px;
     }
