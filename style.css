@@ -103,6 +103,24 @@ body {
     padding-bottom: 10px;
 }
 
+#computer-hand {
+    --card-width: 60px;
+    --card-height: 90px;
+    height: 100px;
+}
+
+#computer-hand .card {
+    margin-left: -35px;
+}
+
+#computer-hand .card:first-child {
+    margin-left: 0;
+}
+
+#computer-hand .uno-text {
+    font-size: 20px;
+}
+
 /* Center Area */
 #center-area {
     display: flex;
