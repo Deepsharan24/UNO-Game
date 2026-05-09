@@ -60,10 +60,10 @@ let computerCalledUno = false;
 function initGame() {
     if (confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
     if (ctx) ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-    
+
     deck = createDeck();
     shuffleDeck(deck);
-    
+
     playerHand = [];
     computerHand = [];
     discardPile = [];
@@ -86,10 +86,10 @@ function initGame() {
     currentColor = firstCard.color;
 
     currentPlayer = 'player';
-    
+
     updateUI();
     updateTurnIndicator();
-    
+
     gameOverModal.classList.add('hidden');
 }
 
@@ -136,9 +136,9 @@ function getCardSymbol(card) {
 function createCardElement(card, index, isPlayer) {
     const el = document.createElement('div');
     el.className = `card ${card.color === 'wild' ? 'wild-card' : card.color}`;
-    
+
     const symbol = getCardSymbol(card);
-    
+
     el.innerHTML = `
         <div class="card-inner">
             <span class="card-corner top-left">${symbol}</span>
@@ -168,9 +168,9 @@ function renderHand(hand, container, isPlayer) {
             const el = document.createElement('div');
             el.className = 'card back';
             el.innerHTML = `<div class="card-inner"><span class="uno-text">UNO</span></div>`;
-            
+
             el.style.zIndex = index;
-            
+
             container.appendChild(el);
         } else {
             container.appendChild(createCardElement(card, index, true));
@@ -194,17 +194,17 @@ function renderDiscardPile() {
                 <span class="card-corner bottom-right">${symbol}</span>
             </div>
         `;
-        
+
         // Random slight rotation for discarded cards
         const rot = (Math.random() * 20 - 10);
         el.style.transform = `rotate(${rot}deg)`;
         el.style.position = 'absolute';
-        
+
         if (i === discardPile.length - 1) {
             el.classList.add('card-animate');
             el.style.setProperty('--rot', `${rot}deg`);
         }
-        
+
         discardPileEl.appendChild(el);
     }
 }
@@ -213,16 +213,16 @@ function updateUI() {
     renderHand(playerHand, playerHandEl, true);
     renderHand(computerHand, computerHandEl, false);
     renderDiscardPile();
-    
+
     computerCardCountEl.innerText = `Cards: ${computerHand.length}`;
-    
+
     colorIndicatorEl.className = `color-indicator ${currentColor}`;
     colorIndicatorEl.style.backgroundColor = `var(--${currentColor})`;
-    
+
     if (bgGlow) {
         bgGlow.className = `glow-${currentColor}`;
     }
-    
+
     // Update UNO button state
     if (currentPlayer === 'player' && playerHand.length === 2 && isPlayableAny(playerHand)) {
         // Can call UNO before playing the 2nd to last card
@@ -254,11 +254,11 @@ function playAudio(audioEl) {
 
 function isPlayable(card) {
     const topCard = discardPile[discardPile.length - 1];
-    
+
     if (card.color === 'wild') return true;
     if (card.color === currentColor) return true;
     if (card.value === topCard.value) return true;
-    
+
     return false;
 }
 
@@ -274,10 +274,10 @@ function drawCard(player, count = 1) {
             deck = discardPile;
             shuffleDeck(deck);
             discardPile = [topCard];
-            
+
             if (deck.length === 0) break; // still empty?
         }
-        
+
         const card = deck.pop();
         if (player === 'player') {
             playerHand.push(card);
@@ -293,17 +293,17 @@ function drawCard(player, count = 1) {
 
 function attemptPlayCard(index, player) {
     if (currentPlayer !== player) return;
-    
+
     const hand = player === 'player' ? playerHand : computerHand;
     const card = hand[index];
-    
+
     if (!isPlayable(card)) return;
-    
+
     // Play the card
     hand.splice(index, 1);
     discardPile.push(card);
     playAudio(cardPlaySound);
-    
+
     if (card.color === 'wild') {
         if (player === 'player') {
             pendingWildCard = card;
@@ -340,13 +340,13 @@ function chooseComputerColor() {
 function handleCardEffect(card, player) {
     let nextPlayer = player === 'player' ? 'computer' : 'player';
     let skipNext = false;
-    
+
     if (['skip', 'reverse', 'draw2', 'draw4', 'wild'].includes(card.value)) {
         document.body.classList.remove('shake');
         void document.body.offsetWidth;
         document.body.classList.add('shake');
     }
-    
+
     if (card.value === 'skip' || card.value === 'reverse') {
         // In 2 player game, reverse acts exactly like skip
         skipNext = true;
@@ -357,16 +357,16 @@ function handleCardEffect(card, player) {
         drawCard(nextPlayer, 4);
         skipNext = true;
     }
-    
+
     checkWinCondition();
-    
+
     if (!skipNext) {
         currentPlayer = nextPlayer;
     }
-    
+
     updateUI();
     updateTurnIndicator();
-    
+
     if (currentPlayer === 'computer' && computerHand.length > 0) {
         setTimeout(computerTurn, 1500);
     }
@@ -383,19 +383,19 @@ document.querySelectorAll('.color-btn').forEach(btn => {
 
 function computerTurn() {
     if (currentPlayer !== 'computer') return;
-    
+
     // Check if forgot to call UNO logic (simulate 10% chance)
     if (computerHand.length === 1 && Math.random() > 0.1) {
         computerCalledUno = true;
         // visual indication could be added here
     }
-    
+
     // Find playable cards
     const playableIndices = [];
     computerHand.forEach((card, index) => {
         if (isPlayable(card)) playableIndices.push(index);
     });
-    
+
     if (playableIndices.length > 0) {
         // Pick a card (prefer non-wilds if possible)
         let chosenIndex = playableIndices[0];
@@ -409,7 +409,7 @@ function computerTurn() {
     } else {
         // Draw a card
         drawCard('computer', 1);
-        
+
         // If the drawn card is playable, play it (optional rule, let's keep it simple and just end turn)
         currentPlayer = 'player';
         updateUI();
@@ -434,7 +434,7 @@ function fireConfetti() {
             color: colors[Math.floor(Math.random() * colors.length)]
         });
     }
-    
+
     function render() {
         ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
         confettiParticles.forEach(p => {
@@ -449,7 +449,7 @@ function fireConfetti() {
             ctx.translate(p.x, p.y);
             ctx.rotate(p.rot * Math.PI / 180);
             ctx.fillStyle = p.color;
-            ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+            ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
             ctx.restore();
         });
         confettiAnimationId = requestAnimationFrame(render);
@@ -474,7 +474,7 @@ function checkWinCondition() {
         currentPlayer = null; // stop game
         playAudio(lossSound);
     }
-    
+
     // Penalize if 1 card left and didn't call UNO (simplified: player must call BEFORE playing 2nd to last, or immediately after if computer catches)
     // For simplicity, we just rely on the button state.
 }
@@ -517,12 +517,12 @@ startGameBtn.addEventListener('click', () => {
     const name = playerNameInput.value.trim() || 'Player';
     playerNameDisplay.innerText = name;
     playerAvatar.src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name)}`;
-    
+
     startScreenModal.classList.add('hidden');
-    
+
     sfxToggle.innerText = "🔊 SFX";
     isSfxPlaying = true;
-    
+
     initGame();
 });
 
@@ -557,7 +557,7 @@ if (loadSpotifyBtn) {
                 spotifyIframeContainer.style.display = 'block';
                 spotifyInput.style.display = 'none';
                 loadSpotifyBtn.style.display = 'none';
-                
+
                 if (isMusicPlaying) {
                     bgMusic.pause();
                     isMusicPlaying = false;
@@ -573,7 +573,7 @@ if (loadSpotifyBtn) {
 
 function createParticles() {
     if (!particlesContainer) return;
-    for(let i=0; i<40; i++) {
+    for (let i = 0; i < 40; i++) {
         const p = document.createElement('div');
         p.className = 'particle';
         p.style.left = Math.random() * 100 + 'vw';
