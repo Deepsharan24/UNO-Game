@@ -602,12 +602,56 @@ body {
 
     .player-area {
         height: auto;
-        padding-bottom: 35px;
+        padding-bottom: 50px;
+        z-index: 5;
+    }
+
+    .player-info {
+        transform: scale(0.85);
+        margin-bottom: 5px;
+    }
+
+    #player-area {
+        margin-bottom: 0;
+    }
+
+    #uno-btn {
+        padding: 8px 15px;
+        font-size: 1rem;
+        border-radius: 20px;
     }
 
     #center-area {
         height: auto;
-        margin-top: 20px;
+        margin-top: 10px;
+    }
+
+    .glass-panel {
+        transform: scale(0.45);
+        transform-origin: top right;
+        top: 5px;
+        right: 5px;
+        bottom: auto;
+        width: 220px;
+        height: auto !important;
+        padding: 10px;
+        z-index: 1000;
+    }
+
+    .glass-panel h3 {
+        font-size: 0.8rem;
+        margin-bottom: 5px !important;
+    }
+
+    .glass-panel .primary-btn,
+    .glass-panel .control-btn {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+
+    #spotify-input {
+        padding: 4px;
+        font-size: 0.75rem;
     }
 }
 
@@ -715,7 +759,7 @@ body {
 /* Spotify Panel */
 .glass-panel {
     position: absolute;
-    bottom: 20px;
+    bottom: auto;
     right: 20px;
     background: rgba(25, 25, 25, 0.6);
     backdrop-filter: blur(15px);
@@ -734,14 +778,4 @@ body {
     color: white;
     padding: 8px;
     border-radius: 5px;
-}
-
-@media (max-width: 768px) {
-    .glass-panel {
-        transform: scale(0.8);
-        transform-origin: bottom right;
-        bottom: 10px;
-        right: 10px;
-        width: 250px;
-    }
 }
