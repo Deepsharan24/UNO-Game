@@ -34,8 +34,9 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: rgba(0, 0, 0, 0.4); /* subtle dark overlay to make cards pop */
-    box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.4);
+    /* subtle dark overlay to make cards pop */
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
 }
 
 #confetti-canvas {
@@ -64,7 +65,7 @@ body {
     background: rgba(0, 0, 0, 0.6);
     padding: 10px 20px;
     border-radius: 50px;
-    border: 2px solid rgba(255,255,255,0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(5px);
     margin-bottom: 10px;
     z-index: 10;
@@ -81,7 +82,7 @@ body {
     border-radius: 50%;
     background: white;
     border: 3px solid #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .player-details h3 {
@@ -131,7 +132,8 @@ body {
     position: relative;
 }
 
-.deck-container, .discard-container {
+.deck-container,
+.discard-container {
     width: var(--card-width);
     height: var(--card-height);
     position: relative;
@@ -143,7 +145,8 @@ body {
     position: relative;
 }
 
-.deck-container .card, .discard-container .card {
+.deck-container .card,
+.discard-container .card {
     position: absolute;
 }
 
@@ -154,7 +157,7 @@ body {
     border-radius: 10px;
     background-color: white;
     padding: 6px;
-    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(0,0,0,0.1);
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(0, 0, 0, 0.1);
     position: relative;
     cursor: pointer;
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, margin 0.3s ease;
@@ -195,7 +198,7 @@ body {
 
 .card.back:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 .card-inner {
@@ -217,7 +220,7 @@ body {
     background-color: white;
     transform: rotate(45deg);
     border-radius: 50%;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
 
@@ -231,20 +234,45 @@ body {
     z-index: 2;
 }
 
-.card.red .card-inner { background-color: var(--red); }
-.card.red .card-inner::after { background-color: var(--red); }
+.card.red .card-inner {
+    background-color: var(--red);
+}
 
-.card.blue .card-inner { background-color: var(--blue); }
-.card.blue .card-inner::after { background-color: var(--blue); }
+.card.red .card-inner::after {
+    background-color: var(--red);
+}
 
-.card.green .card-inner { background-color: var(--green); }
-.card.green .card-inner::after { background-color: var(--green); }
+.card.blue .card-inner {
+    background-color: var(--blue);
+}
 
-.card.yellow .card-inner { background-color: var(--yellow); }
-.card.yellow .card-inner::after { background-color: var(--yellow); }
+.card.blue .card-inner::after {
+    background-color: var(--blue);
+}
 
-.card.wild-card .card-inner { background: conic-gradient(var(--red) 90deg, var(--blue) 90deg 180deg, var(--green) 180deg 270deg, var(--yellow) 270deg 360deg); }
-.card.wild-card .card-inner::after { background: #222; }
+.card.green .card-inner {
+    background-color: var(--green);
+}
+
+.card.green .card-inner::after {
+    background-color: var(--green);
+}
+
+.card.yellow .card-inner {
+    background-color: var(--yellow);
+}
+
+.card.yellow .card-inner::after {
+    background-color: var(--yellow);
+}
+
+.card.wild-card .card-inner {
+    background: conic-gradient(var(--red) 90deg, var(--blue) 90deg 180deg, var(--green) 180deg 270deg, var(--yellow) 270deg 360deg);
+}
+
+.card.wild-card .card-inner::after {
+    background: #222;
+}
 
 .card-value {
     position: relative;
@@ -252,7 +280,7 @@ body {
     font-size: 50px;
     font-weight: bold;
     color: white;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
     /* -webkit-text-stroke: 1px black; */
 }
 
@@ -262,7 +290,7 @@ body {
     font-size: 20px;
     font-weight: bold;
     color: white;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .card-corner.top-left {
@@ -303,14 +331,14 @@ body {
     color: white;
     border: 3px solid white;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255,0,0,0.5);
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
     text-transform: uppercase;
     transition: all 0.2s;
 }
 
 #uno-btn:hover:not(.disabled) {
     transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(255,0,0,0.8);
+    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.8);
 }
 
 #uno-btn.disabled {
@@ -326,7 +354,7 @@ body {
     height: 40px;
     border-radius: 50%;
     border: 3px solid white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
     transition: background-color 0.3s;
 }
 
@@ -334,7 +362,7 @@ body {
     font-size: 1.2rem;
     font-weight: bold;
     text-shadow: 1px 1px 3px black;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     padding: 5px 15px;
     border-radius: 20px;
 }
@@ -346,7 +374,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -364,7 +392,7 @@ body {
     border-radius: 15px;
     border: 2px solid #444;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
 .modal-content h2 {
@@ -390,10 +418,21 @@ body {
     transform: scale(1.1);
 }
 
-.color-btn.red { background-color: var(--red); }
-.color-btn.blue { background-color: var(--blue); }
-.color-btn.green { background-color: var(--green); }
-.color-btn.yellow { background-color: var(--yellow); }
+.color-btn.red {
+    background-color: var(--red);
+}
+
+.color-btn.blue {
+    background-color: var(--blue);
+}
+
+.color-btn.green {
+    background-color: var(--green);
+}
+
+.color-btn.yellow {
+    background-color: var(--yellow);
+}
 
 .primary-btn {
     margin-top: 20px;
@@ -439,9 +478,9 @@ body {
 }
 
 .control-btn {
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     color: white;
-    border: 1px solid rgba(255,255,255,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 8px 15px;
     border-radius: 20px;
     cursor: pointer;
@@ -450,7 +489,7 @@ body {
 }
 
 .control-btn:hover {
-    background: rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.8);
 }
 
 /* Animations */
@@ -459,6 +498,7 @@ body {
         transform: translate(0, 0) scale(1);
         opacity: 0;
     }
+
     to {
         transform: translate(var(--tx), var(--ty)) scale(var(--s));
         opacity: 1;
@@ -470,8 +510,15 @@ body {
 }
 
 @keyframes dropIn {
-    0% { transform: scale(1.5); opacity: 0; }
-    100% { transform: scale(1) rotate(var(--rot)); opacity: 1; }
+    0% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1) rotate(var(--rot));
+        opacity: 1;
+    }
 }
 
 /* Mobile Adjustments */
@@ -480,14 +527,26 @@ body {
         --card-width: 60px;
         --card-height: 90px;
     }
-    
-    .card-value { font-size: 30px; }
-    .card-corner { font-size: 14px; }
-    
-    #center-area { gap: 20px; flex-direction: column; }
-    
-    .center-controls { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-    
+
+    .card-value {
+        font-size: 30px;
+    }
+
+    .card-corner {
+        font-size: 14px;
+    }
+
+    #center-area {
+        gap: 20px;
+        flex-direction: column;
+    }
+
+    .center-controls {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
     .hand {
         overflow-x: auto;
         justify-content: flex-start;
@@ -506,18 +565,18 @@ body {
         overflow: hidden;
         margin-top: 10px;
     }
-    
+
     #computer-hand .card {
         margin-left: -20px;
         border-width: 2px;
         border-radius: 4px;
         padding: 2px;
     }
-    
+
     #computer-hand .card:first-child {
         margin-left: 0;
     }
-    
+
     #computer-hand .uno-text {
         font-size: 10px;
     }
@@ -525,8 +584,9 @@ body {
     .hand::-webkit-scrollbar {
         height: 5px;
     }
+
     .hand::-webkit-scrollbar-thumb {
-        background: rgba(255,255,255,0.3);
+        background: rgba(255, 255, 255, 0.3);
         border-radius: 5px;
     }
 
@@ -534,19 +594,154 @@ body {
         margin-left: -25px;
         flex-shrink: 0;
     }
-    
+
     #player-hand .card:hover {
         transform: translateY(-20px) scale(1.15) !important;
         margin-right: 15px;
     }
-    
+
     .player-area {
         height: auto;
         padding-bottom: 35px;
     }
-    
+
     #center-area {
         height: auto;
         margin-top: 20px;
+    }
+}
+
+/* Royal Violet Ambient Lighting */
+#dynamic-bg-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(circle at center, transparent 20%, rgba(45, 10, 80, 0.9) 100%);
+    background-color: rgba(90, 30, 150, 0.15);
+}
+
+/* Shake Effect */
+@keyframes shakeScreen {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-2px, -4px) rotate(-1deg);
+    }
+
+    20% {
+        transform: translate(-6px, 0px) rotate(1deg);
+    }
+
+    30% {
+        transform: translate(6px, 4px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(2px, -2px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-2px, 4px) rotate(-1deg);
+    }
+
+    60% {
+        transform: translate(-6px, 2px) rotate(0deg);
+    }
+
+    70% {
+        transform: translate(6px, 2px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translate(-2px, -2px) rotate(1deg);
+    }
+
+    90% {
+        transform: translate(2px, 4px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(2px, -4px) rotate(-1deg);
+    }
+}
+
+.shake {
+    animation: shakeScreen 0.4s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+/* Particles Container */
+#particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 10px white;
+    animation: floatUp 5s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    to {
+        transform: translateY(-20vh) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Spotify Panel */
+.glass-panel {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(25, 25, 25, 0.6);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    width: 300px;
+    z-index: 50;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+#spotify-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .glass-panel {
+        transform: scale(0.8);
+        transform-origin: bottom right;
+        bottom: 10px;
+        right: 10px;
+        width: 250px;
     }
 }

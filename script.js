@@ -35,12 +35,18 @@ const restartBtn = document.getElementById('restart-btn');
 const bgMusic = document.getElementById('bg-music');
 const cardPlaySound = document.getElementById('card-play-sound');
 const cardDrawSound = document.getElementById('card-draw-sound');
-const musicToggle = document.getElementById('music-toggle');
 const sfxToggle = document.getElementById('sfx-toggle');
 const winSound = document.getElementById('win-sound');
 const lossSound = document.getElementById('loss-sound');
 const confettiCanvas = document.getElementById('confetti-canvas');
 const ctx = confettiCanvas.getContext('2d');
+
+const spotifyInput = document.getElementById('spotify-input');
+const loadSpotifyBtn = document.getElementById('load-spotify-btn');
+const spotifyIframeContainer = document.getElementById('spotify-iframe-container');
+const bgGlow = document.getElementById('dynamic-bg-glow');
+const particlesContainer = document.getElementById('particles-container');
+
 let confettiParticles = [];
 let confettiAnimationId = null;
 
@@ -213,6 +219,10 @@ function updateUI() {
     colorIndicatorEl.className = `color-indicator ${currentColor}`;
     colorIndicatorEl.style.backgroundColor = `var(--${currentColor})`;
     
+    if (bgGlow) {
+        bgGlow.className = `glow-${currentColor}`;
+    }
+    
     // Update UNO button state
     if (currentPlayer === 'player' && playerHand.length === 2 && isPlayableAny(playerHand)) {
         // Can call UNO before playing the 2nd to last card
@@ -330,6 +340,12 @@ function chooseComputerColor() {
 function handleCardEffect(card, player) {
     let nextPlayer = player === 'player' ? 'computer' : 'player';
     let skipNext = false;
+    
+    if (['skip', 'reverse', 'draw2', 'draw4', 'wild'].includes(card.value)) {
+        document.body.classList.remove('shake');
+        void document.body.offsetWidth;
+        document.body.classList.add('shake');
+    }
     
     if (card.value === 'skip' || card.value === 'reverse') {
         // In 2 player game, reverse acts exactly like skip
@@ -486,18 +502,6 @@ restartBtn.addEventListener('click', () => {
     initGame();
 });
 
-musicToggle.addEventListener('click', () => {
-    if (isMusicPlaying) {
-        bgMusic.pause();
-        musicToggle.innerText = "🔇 Music";
-        isMusicPlaying = false;
-    } else {
-        bgMusic.play().catch(e => console.log('Audio play failed:', e));
-        musicToggle.innerText = "🔊 Music";
-        isMusicPlaying = true;
-    }
-});
-
 sfxToggle.addEventListener('click', () => {
     if (isSfxPlaying) {
         sfxToggle.innerText = "🔇 SFX";
@@ -505,7 +509,6 @@ sfxToggle.addEventListener('click', () => {
     } else {
         sfxToggle.innerText = "🔊 SFX";
         isSfxPlaying = true;
-        // play a test sound
         playAudio(cardPlaySound);
     }
 });
@@ -517,14 +520,68 @@ startGameBtn.addEventListener('click', () => {
     
     startScreenModal.classList.add('hidden');
     
-    // Start audio
-    bgMusic.volume = 0.3;
-    bgMusic.play().catch(e => console.log('Audio play failed:', e));
-    musicToggle.innerText = "🔊 Music";
-    isMusicPlaying = true;
-    
     sfxToggle.innerText = "🔊 SFX";
     isSfxPlaying = true;
     
     initGame();
 });
+
+const internalMusicBtn = document.getElementById('internal-music-btn');
+const musicDivider = document.getElementById('music-divider');
+
+if (internalMusicBtn) {
+    internalMusicBtn.addEventListener('click', () => {
+        if (isMusicPlaying) {
+            bgMusic.pause();
+            internalMusicBtn.innerText = "▶️ Play Default (The Weeknd Vibe)";
+            isMusicPlaying = false;
+        } else {
+            bgMusic.volume = 0.3;
+            bgMusic.play().catch(e => console.log('Audio play failed:', e));
+            internalMusicBtn.innerText = "⏸️ Pause Default Music";
+            isMusicPlaying = true;
+        }
+    });
+}
+
+if (loadSpotifyBtn) {
+    loadSpotifyBtn.addEventListener('click', () => {
+        const url = spotifyInput.value.trim();
+        if (url) {
+            const regex = /spotify\.com\/(playlist|album|track)\/([a-zA-Z0-9]+)/;
+            const match = url.match(regex);
+            if (match) {
+                const type = match[1];
+                const id = match[2];
+                spotifyIframeContainer.innerHTML = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/${type}/${id}?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+                spotifyIframeContainer.style.display = 'block';
+                spotifyInput.style.display = 'none';
+                loadSpotifyBtn.style.display = 'none';
+                
+                if (isMusicPlaying) {
+                    bgMusic.pause();
+                    isMusicPlaying = false;
+                }
+                if (internalMusicBtn) internalMusicBtn.style.display = 'none';
+                if (musicDivider) musicDivider.style.display = 'none';
+            } else {
+                alert('Please enter a valid Spotify link!');
+            }
+        }
+    });
+}
+
+function createParticles() {
+    if (!particlesContainer) return;
+    for(let i=0; i<40; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.animationDuration = (Math.random() * 4 + 3) + 's';
+        p.style.animationDelay = (Math.random() * 5) + 's';
+        p.style.width = (Math.random() * 6 + 2) + 'px';
+        p.style.height = p.style.width;
+        particlesContainer.appendChild(p);
+    }
+}
+createParticles();

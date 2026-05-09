@@ -9,6 +9,8 @@
 </head>
 <body>
     <canvas id="confetti-canvas"></canvas>
+    <div id="particles-container"></div>
+    <div id="dynamic-bg-glow"></div>
     <div id="game-container">
         <!-- Top area: Computer Hand -->
         <div id="computer-area" class="player-area">
@@ -53,6 +55,17 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="spotify-panel" class="glass-panel">
+        <h3 style="margin-bottom: 10px; font-size: 1.1rem;">🎵 Music & Spotify</h3>
+        <input type="text" id="spotify-input" placeholder="Paste Spotify Playlist Link here..." autocomplete="off" />
+        <button id="load-spotify-btn" class="primary-btn" style="margin-top: 5px; padding: 5px 10px; font-size: 0.9rem;">Load Spotify</button>
+        <div id="spotify-iframe-container" style="margin-top: 10px; display: none;"></div>
+        
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.2); margin: 10px 0;" id="music-divider">
+        <button id="internal-music-btn" class="control-btn" style="width: 100%; margin-bottom: 5px;">▶️ Play Default (The Weeknd Vibe)</button>
+        <button id="sfx-toggle" class="control-btn" style="width: 100%;">🔊 SFX</button>
     </div>
 
     <!-- Modals -->
@@ -102,12 +115,10 @@
     <audio id="loss-sound">
         <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_c6ccf3232f.mp3?filename=negative_beeps-6008.mp3" type="audio/mpeg">
     </audio>
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+    </audio>
     
-    <div class="audio-controls">
-        <button id="music-toggle" class="control-btn">🔇 Music</button>
-        <button id="sfx-toggle" class="control-btn">🔇 SFX</button>
-    </div>
-
     <script src="script.js"></script>
 </body>
 </html>
