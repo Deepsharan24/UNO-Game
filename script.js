@@ -20,9 +20,6 @@ const computerCardCountEl = document.getElementById('computer-card-count');
 const unoBtn = document.getElementById('uno-btn');
 
 // Modals
-const startScreenModal = document.getElementById('start-screen-modal');
-const playerNameInput = document.getElementById('player-name-input');
-const startGameBtn = document.getElementById('start-game-btn');
 const playerNameDisplay = document.getElementById('player-name-display');
 const playerAvatar = document.getElementById('player-avatar');
 const colorPickerModal = document.getElementById('color-picker-modal');
@@ -513,18 +510,18 @@ sfxToggle.addEventListener('click', () => {
     }
 });
 
-startGameBtn.addEventListener('click', () => {
-    const name = playerNameInput.value.trim() || 'Player';
+function startGame() {
+    const name = 'Player';
     playerNameDisplay.innerText = name;
     playerAvatar.src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name)}`;
-
-    startScreenModal.classList.add('hidden');
 
     sfxToggle.innerText = "🔊 SFX";
     isSfxPlaying = true;
 
     initGame();
-});
+}
+
+startGame();
 
 const internalMusicBtn = document.getElementById('internal-music-btn');
 const musicDivider = document.getElementById('music-divider');
